@@ -29,3 +29,5 @@ ctest --output-on-failure
 | # | Challenge |
 |---|-----------|
 | 1 | Hex to Base64 |
+| 2 | Fixed XOR |
+| 3 | Single-byte XOR cipher |
