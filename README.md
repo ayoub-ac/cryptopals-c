@@ -34,3 +34,8 @@ ctest --output-on-failure
 | 4 | Detect single-char XOR |
 | 5 | Repeating-key XOR |
 | 6 | Break repeating-key XOR |
+
+### Set 2 — Block Crypto
+| # | Challenge |
+|---|-----------|
+| 9 | PKCS#7 padding |
