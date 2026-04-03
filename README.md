@@ -40,3 +40,4 @@ ctest --output-on-failure
 | # | Challenge |
 |---|-----------|
 | 9 | PKCS#7 padding |
+| 10 | Implement CBC mode |
