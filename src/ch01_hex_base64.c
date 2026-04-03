@@ -7,6 +7,7 @@
 */
 #include "ch01_hex_base64.h"
 #include <string.h>
+#include <stdio.h>
 
 // convert a single hex char to its value (0-15), -1 if invalid
 static int hex_char_to_val(char c)
@@ -93,4 +94,70 @@ int hex_to_base64(const char *hex_str, char *out, size_t out_size)
         return -1;
 
     return bytes_to_base64(buf, (size_t)n, out, out_size);
+}
+
+// reverse lookup: base64 char to its 6-bit value
+static int b64_char_to_val(char c)
+{
+    if (c >= 'A' && c <= 'Z') return c - 'A';
+    if (c >= 'a' && c <= 'z') return c - 'a' + 26;
+    if (c >= '0' && c <= '9') return c - '0' + 52;
+    if (c == '+') return 62;
+    if (c == '/') return 63;
+    return -1;
+}
+
+// decode base64 string to raw bytes (inverse of bytes_to_base64)
+int base64_to_bytes(const char *b64_str, uint8_t *out, size_t out_size)
+{
+    size_t len = strlen(b64_str);
+    if (len % 4 != 0) // base64 always comes in groups of 4
+        return -1;
+
+    size_t num_bytes = (len / 4) * 3;
+    if (len >= 1 && b64_str[len - 1] == '=') num_bytes--;
+    if (len >= 2 && b64_str[len - 2] == '=') num_bytes--;
+    if (num_bytes > out_size)
+        return -1;
+
+    size_t i, j;
+    for (i = 0, j = 0; i < len; ) {
+        int a = (b64_str[i] == '=') ? 0 : b64_char_to_val(b64_str[i]); i++;
+        int b = (b64_str[i] == '=') ? 0 : b64_char_to_val(b64_str[i]); i++;
+        int c = (b64_str[i] == '=') ? 0 : b64_char_to_val(b64_str[i]); i++;
+        int d = (b64_str[i] == '=') ? 0 : b64_char_to_val(b64_str[i]); i++;
+
+        uint32_t triple = (a << 18) | (b << 12) | (c << 6) | d;
+        if (j < num_bytes) out[j++] = (triple >> 16) & 0xFF;
+        if (j < num_bytes) out[j++] = (triple >> 8) & 0xFF;
+        if (j < num_bytes) out[j++] = triple & 0xFF;
+    }
+
+    return (int)num_bytes;
+}
+
+// read a file with base64 content (multiline), decode to raw bytes
+int read_base64_file(const char *filename, uint8_t *out, size_t out_size)
+{
+    FILE *f = fopen(filename, "r");
+    if (!f) return -1;
+
+    // read all lines, strip newlines, build one big base64 string
+    char b64[16384];
+    size_t pos = 0;
+    char line[256];
+
+    while (fgets(line, sizeof(line), f)) {
+        size_t slen = strlen(line);
+        while (slen > 0 && (line[slen - 1] == '\n' || line[slen - 1] == '\r'))
+            line[--slen] = '\0';
+        if (pos + slen < sizeof(b64)) {
+            memcpy(b64 + pos, line, slen);
+            pos += slen;
+        }
+    }
+    b64[pos] = '\0';
+    fclose(f);
+
+    return base64_to_bytes(b64, out, out_size);
 }

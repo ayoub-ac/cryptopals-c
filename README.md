@@ -33,3 +33,4 @@ ctest --output-on-failure
 | 3 | Single-byte XOR cipher |
 | 4 | Detect single-char XOR |
 | 5 | Repeating-key XOR |
+| 6 | Break repeating-key XOR |
