@@ -32,3 +32,4 @@ ctest --output-on-failure
 | 2 | Fixed XOR |
 | 3 | Single-byte XOR cipher |
 | 4 | Detect single-char XOR |
+| 5 | Repeating-key XOR |
