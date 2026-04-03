@@ -34,6 +34,7 @@ ctest --output-on-failure
 | 4 | Detect single-char XOR |
 | 5 | Repeating-key XOR |
 | 6 | Break repeating-key XOR |
+| 7 | AES in ECB mode |
 
 ### Set 2 — Block Crypto
 | # | Challenge |

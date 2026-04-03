@@ -9,10 +9,14 @@ include(FetchContent)
 FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip)
 FetchContent_MakeAvailable(googletest)
 
+# OpenSSL (needed for AES challenges)
+find_package(OpenSSL REQUIRED)
+
 # compile all .c files in src/ into a library
 file(GLOB CHALLENGE_SOURCES src/*.c)
 add_library(challenges ${CHALLENGE_SOURCES})
 target_include_directories(challenges PUBLIC include)
+target_link_libraries(challenges OpenSSL::Crypto)
 
 # find all test files and create one executable per test
 enable_testing()
