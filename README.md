@@ -31,3 +31,4 @@ ctest --output-on-failure
 | 1 | Hex to Base64 |
 | 2 | Fixed XOR |
 | 3 | Single-byte XOR cipher |
+| 4 | Detect single-char XOR |
