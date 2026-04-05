@@ -44,3 +44,6 @@ ctest --output-on-failure
 | 10 | Implement CBC mode |
 | 11 | ECB/CBC detection oracle |
 | 12 | Byte-at-a-time ECB decryption |
+| 13 | ECB cut-and-paste |
+| 14 | Byte-at-a-time ECB with prefix |
+| 15 | PKCS#7 padding validation |
