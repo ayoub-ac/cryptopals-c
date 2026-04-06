@@ -48,3 +48,9 @@ ctest --output-on-failure
 | 14 | Byte-at-a-time ECB with prefix |
 | 15 | PKCS#7 padding validation |
 | 16 | CBC bitflipping attack |
+
+### Set 3 — Block & Stream Crypto
+| # | Challenge |
+|---|-----------|
+| 18 | Implement CTR mode |
+| 21 | Implement MT19937 Mersenne Twister |
