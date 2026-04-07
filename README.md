@@ -54,3 +54,4 @@ ctest --output-on-failure
 |---|-----------|
 | 18 | Implement CTR mode |
 | 21 | Implement MT19937 Mersenne Twister |
+| 22 | Crack MT19937 seed |
