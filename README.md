@@ -53,6 +53,8 @@ ctest --output-on-failure
 | # | Challenge |
 |---|-----------|
 | 18 | Implement CTR mode |
+| 19 | Break fixed-nonce CTR |
+| 20 | Break fixed-nonce CTR statistically |
 | 21 | Implement MT19937 Mersenne Twister |
 | 22 | Crack MT19937 seed |
 | 24 | MT19937 stream cipher |
