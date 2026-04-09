@@ -57,4 +57,5 @@ ctest --output-on-failure
 | 20 | Break fixed-nonce CTR statistically |
 | 21 | Implement MT19937 Mersenne Twister |
 | 22 | Crack MT19937 seed |
+| 23 | Clone MT19937 from output |
 | 24 | MT19937 stream cipher |
