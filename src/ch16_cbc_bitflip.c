@@ -60,17 +60,18 @@ int bitflip_check_admin(const uint8_t *cipher, size_t cipher_len)
     return strstr((const char *)plain, ";admin=true;") != NULL;
 }
 
-// flip bits in the ciphertext to turn X into ; and =
+// CBC bitflipping attack: modify C[N-1] to control P[N] at decryption time.
+// Decryption formula: P[N] = AES_decrypt(C[N]) XOR C[N-1]
+// To change byte at position pos from value `current` to value `wanted`:
+//   C[N-1][pos] ^= current ^ wanted
+// Block 1 (bytes 16-31) XORs into block 2 during decryption.
+// We sent "XadminXtrueX" in block 2 — flip the three X placeholders to ; = ;
 int cbc_bitflip_attack(uint8_t *cipher, size_t cipher_len)
 {
-    // the prefix is 32 bytes so our input starts at block 2
-    // we sent "XadminXtrueX" where X is a placeholder
-    // flipping bits in block 1 changes the same positions in block 2
-
     if (cipher_len < 48) return -1;
 
-    cipher[16 + 0] ^= 'X' ^ ';';
-    cipher[16 + 6] ^= 'X' ^ '=';
+    cipher[16 + 0]  ^= 'X' ^ ';';
+    cipher[16 + 6]  ^= 'X' ^ '=';
     cipher[16 + 11] ^= 'X' ^ ';';
 
     return 0;

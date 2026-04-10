@@ -106,8 +106,10 @@ int decrypt_ecb_simple(uint8_t *out, size_t out_size)
     uint8_t cipher_try[4096];
 
     for (int i = 0; i < unknown_len; i++) {
+        // which 16-byte block holds byte i, and where inside that block
         int block_num = i / block_size;
         int byte_in_block = i % block_size;
+        // push unknown[i] to the last position of block_num using padding
         int pad_len = block_size - 1 - byte_in_block;
 
         // craft input: pad_len A's
