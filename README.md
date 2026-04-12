@@ -52,6 +52,7 @@ ctest --output-on-failure
 ### Set 3 — Block & Stream Crypto
 | # | Challenge |
 |---|-----------|
+| 17 | The CBC padding oracle |
 | 18 | Implement CTR mode |
 | 19 | Break fixed-nonce CTR |
 | 20 | Break fixed-nonce CTR statistically |

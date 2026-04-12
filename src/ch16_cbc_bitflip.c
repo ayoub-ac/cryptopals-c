@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
 
 static uint8_t server_key[16];
 static uint8_t server_iv[16];
